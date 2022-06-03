@@ -27,7 +27,7 @@ resource "azurerm_key_vault" "vault" {
   }
 
   dynamic "access_policy" {
-    for_each = var.resource_key_vault_access_object_ids != null ? var.resource_key_vault_access_object_ids : null
+    for_each = var.resource_key_vault_access_object_ids != null ? var.resource_key_vault_access_object_ids : []
 
     content {
       tenant_id = data.azurerm_client_config.current.tenant_id
