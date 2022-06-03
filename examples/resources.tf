@@ -7,5 +7,5 @@ module "key_vault" {
   resource_name                        = local.resource_name
   resource_secret                      = random_password.password
   resource_instance_count              = var.resource_instance_count
-  resource_key_vault_access_object_ids = var.resource_key_vault_access_object_ids
+  resource_key_vault_access_object_ids = null
 }
