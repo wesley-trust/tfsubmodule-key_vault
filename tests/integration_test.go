@@ -37,13 +37,16 @@ func TestApplySingleInstance(t *testing.T) {
 
 		// Variables to pass to the Terraform code using -var options
 		Vars: map[string]interface{}{
-			"service_deployment":       serviceDeployment,
-			"resource_instance_count":  1,
-			"service_location":         location,
+			"service_deployment":      serviceDeployment,
+			"resource_instance_count": 1,
+			"service_location":        location,
 		},
 	})
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
+	defer terraform.Destroy(t, terraformOptions)
+
+	// At the end of the test, run `terraform destroy` again, in case failures leave orphaned resources
 	defer terraform.Destroy(t, terraformOptions)
 
 	// Run `terraform init` and `terraform apply`. Fail the test if there are any errors.
@@ -78,13 +81,16 @@ func TestApplyMultiInstance(t *testing.T) {
 
 		// Variables to pass to the Terraform code using -var options
 		Vars: map[string]interface{}{
-			"service_deployment":       serviceDeployment,
-			"resource_instance_count":  2,
-			"service_location":         location,
+			"service_deployment":      serviceDeployment,
+			"resource_instance_count": 2,
+			"service_location":        location,
 		},
 	})
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
+	defer terraform.Destroy(t, terraformOptions)
+
+	// At the end of the test, run `terraform destroy` again, in case failures leave orphaned resources
 	defer terraform.Destroy(t, terraformOptions)
 
 	// Run `terraform init` and `terraform apply`. Fail the test if there are any errors.
